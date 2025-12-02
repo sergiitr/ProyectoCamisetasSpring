@@ -64,12 +64,3 @@ INSERT INTO `camiseta` (`id`, `talla`, `sexo`, `color`, `marca`, `stock`, `preci
 (5,	'xxl',	'nino',	'#f9f06b',	'Adidas',	12,	34.00,	1),
 (14,	'xs',	'unisex',	'#e66100',	'Adidas',	3,	6.00,	1);
 
-CREATE TABLE categoria (
-  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  nombre VARCHAR(100) NOT NULL,
-  PRIMARY KEY(id)
-);
-
-ALTER TABLE camiseta
-  ADD COLUMN categoria_id INT UNSIGNED NULL,
-  ADD FOREIGN KEY(categoria_id) REFERENCES categoria(id);
