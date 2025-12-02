@@ -7,6 +7,8 @@ services:
       MYSQL_ROOT_PASSWORD: s83n38DGB8d72
     ports:
       - 3307:3306
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
 
   adminer:
     image: adminer:latest
