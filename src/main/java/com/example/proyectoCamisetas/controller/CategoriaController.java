@@ -17,13 +17,13 @@ public class CategoriaController {
     @GetMapping
     public String list(Model model) {
         model.addAttribute("categorias", categoriaRepo.findAll());
-        return "categoria/list";
+        return "admin/categoria/list";
     }
 
     @GetMapping("/add")
     public String addForm(Model model) {
         model.addAttribute("categoria", new Categoria());
-        return "categoria/add";
+        return "admin/categoria/add";
     }
 
     @PostMapping("/add")
@@ -35,7 +35,7 @@ public class CategoriaController {
     @GetMapping("/edit/{id}")
     public String editForm(@PathVariable Integer id, Model model) {
         model.addAttribute("categoria", categoriaRepo.findById(id).orElseThrow());
-        return "categoria/edit";
+        return "admin/categoria/edit";
     }
 
     @PostMapping("/edit/{id}")
@@ -47,7 +47,7 @@ public class CategoriaController {
     @GetMapping("/del/{id}")
     public String delForm(@PathVariable Integer id, Model model) {
         model.addAttribute("categoria", categoriaRepo.findById(id).orElseThrow());
-        return "categoria/del";
+        return "admin/categoria/del";
     }
 
     @PostMapping("/del/{id}")
@@ -62,6 +62,6 @@ public class CategoriaController {
         Categoria categoria = categoriaRepo.findById(id).orElseThrow();
         model.addAttribute("categoria", categoria);
         model.addAttribute("camisetas", categoria.getCamisetas());
-        return "categoria/detalle";
+        return "admin/categoria/detalle";
     }
 }
