@@ -1,1 +1,9 @@
-D:\Desktop\proyectoCamisetas\src\main\java\com\example\proyectoCamisetas\ProyectoCamisetasApplication.java
+/home/sergiitr11/Escritorio/ProyectoCamisetasSpring/src/main/java/com/example/proyectoCamisetas/ProyectoCamisetasApplication.java
+/home/sergiitr11/Escritorio/ProyectoCamisetasSpring/src/main/java/com/example/proyectoCamisetas/controller/CategoriaController.java
+/home/sergiitr11/Escritorio/ProyectoCamisetasSpring/src/main/java/com/example/proyectoCamisetas/controller/ControCamiseta.java
+/home/sergiitr11/Escritorio/ProyectoCamisetasSpring/src/main/java/com/example/proyectoCamisetas/entity/Camiseta.java
+/home/sergiitr11/Escritorio/ProyectoCamisetasSpring/src/main/java/com/example/proyectoCamisetas/entity/Categoria.java
+/home/sergiitr11/Escritorio/ProyectoCamisetasSpring/src/main/java/com/example/proyectoCamisetas/entity/Sexo.java
+/home/sergiitr11/Escritorio/ProyectoCamisetasSpring/src/main/java/com/example/proyectoCamisetas/entity/Talla.java
+/home/sergiitr11/Escritorio/ProyectoCamisetasSpring/src/main/java/com/example/proyectoCamisetas/repository/CamisetaRepository.java
+/home/sergiitr11/Escritorio/ProyectoCamisetasSpring/src/main/java/com/example/proyectoCamisetas/repository/CategoriaRepository.java

@@ -1,0 +1,5 @@
+com/example/proyectoCamisetas/entity/Camiseta.class
+com/example/proyectoCamisetas/entity/Categoria.class
+com/example/proyectoCamisetas/ProyectoCamisetasApplication.class
+com/example/proyectoCamisetas/controller/CategoriaController.class
+com/example/proyectoCamisetas/repository/CategoriaRepository.class
