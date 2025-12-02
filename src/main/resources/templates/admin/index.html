@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8">
-        <title>Panel de Administración</title>
-    </head>
-    <body>
-        <h1>Bienvenido al Panel de Administración</h1>
-        <p>Desde aquí podrás gestionar productos, usuarios y pedidos.</p>
-        <ul>
-            <li><a th:href="@{/admin/productos}">Gestión de Productos (Ruta: /admin/productos)</a></li>
-            </ul>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Administración</title>
+</head>
+<body>
+    <h1>Bienvenido al Panel de Administración</h1>
+    
+    <h2>Módulos de Gestión:</h2>
+    <ul>
+        <li><a th:href="@{/admin/productos}">Gestión de Camisetas (CRUD)</a></li>
+        <li><a th:href="@{/admin/camiseta/categoria/1}">Maestro-Detalle (Categorías)</a></li>
+        </ul>
+</body>
 </html>

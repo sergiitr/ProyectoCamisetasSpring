@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Editar Camiseta (ID: ' + ${camiseta.id} + ')'">Editar Camiseta</title>
+</head>
+<body>
+    <h1 th:text="'Editar Camiseta (ID: ' + ${camiseta.id} + ')'">Editar Camiseta</h1>
+
+    <form th:action="@{/admin/camiseta/edit/{id}(id=${camiseta.id})}" th:object="${camiseta}" method="post">
+        
+        <input type="hidden" th:field="*{id}"> <label for="marca">Marca:</label>
+        <input type="text" id="marca" th:field="*{marca}" required><br/><br/>
+
+        <label for="categoria">Categoría:</label>
+        <select id="categoria" th:field="*{categoria}" required>
+            <option th:each="cat : ${categorias}" 
+                    th:value="${cat.id}" 
+                    th:text="${cat.nombre}">Nombre de Categoría</option>
+        </select><br/><br/>
+
+        <label for="precio">Precio:</label>
+        <input type="number" id="precio" th:field="*{precio}" step="0.01" required><br/><br/>
+
+        <button type="submit">Actualizar</button>
+    </form>
+    <a th:href="@{/admin/camiseta}">Cancelar y Volver al Listado</a>
+</body>
+</html>

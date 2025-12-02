@@ -1,8 +1,11 @@
+// Archivo: src/main/java/com/example/proyectoCamisetas/controller/ControCamiseta.java
+
 package com.example.proyectoCamisetas.controller;
 
 import com.example.proyectoCamisetas.entity.Camiseta;
-import com.example.proyectoCamisetas.repository.CamisetaRepository;
-import com.example.proyectoCamisetas.repository.CategoriaRepository;
+import com.example.proyectoCamisetas.entity.Categoria;
+import com.example.proyectoCamisetas.repository.CamisetaRepository; 
+import com.example.proyectoCamisetas.repository.CategoriaRepository; 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,92 +19,92 @@ import java.util.Optional;
 public class ControCamiseta {
 
     @Autowired
-    CamisetaRepository CamisetaRepository;
+    CamisetaRepository camisetaRepository; 
 
     @Autowired
-    CategoriaRepository CategoriaRepository;
+    CategoriaRepository categoriaRepository; 
+
 
     // RUTA: GET /admin/camiseta -> findAll()
-    @GetMapping
+    @GetMapping({"", "/"})
     public String findAll(Model model) {
-        model.addAttribute("camisetas", CamisetaRepository.findAll());
-        return "admin/camisetas-listado";
+        model.addAttribute("camisetas", camisetaRepository.findAll());
+        return "camiseta/list"; 
     }
 
     // RUTA: GET /admin/camiseta/add -> addCamisetaForm()
     @GetMapping("/add")
     public String addCamisetaForm(Model model) {
         model.addAttribute("camiseta", new Camiseta());
-        // Necesario para el selector de categorías en el formulario
-        model.addAttribute("categorias", CategoriaRepository.findAll()); 
-        return "admin/camisetas-form";
+        model.addAttribute("categorias", categoriaRepository.findAll()); 
+        return "camiseta/add";
     }
 
     // RUTA: POST /admin/camiseta/add -> addCamiseta()
     @PostMapping("/add")
     public String addCamiseta(@ModelAttribute("camiseta") Camiseta camiseta) {
-        CamisetaRepository.save(camiseta);
+        camisetaRepository.save(camiseta);
         return "redirect:/admin/camiseta";
     }
 
     // RUTA: GET /admin/camiseta/edit/{id} -> editCamisetaForm()
+    // CORRECCIÓN: Cambiamos Long a Integer para que coincida con el Repositorio de Categoria
     @GetMapping("/edit/{id}")
-    public String editCamisetaForm(@PathVariable("id") Long id, Model model) {
-        Optional<Camiseta> oCamiseta = CamisetaRepository.findById(id);
+    public String editCamisetaForm(@PathVariable("id") Integer id, Model model) {
+        // ASUMIMOS que CamisetaRepository también usa Integer
+        Optional<Camiseta> oCamiseta = camisetaRepository.findById(id);
         if (oCamiseta.isPresent()) {
             model.addAttribute("camiseta", oCamiseta.get());
-            model.addAttribute("categorias", CategoriaRepository.findAll());
-            return "admin/camisetas-form";
+            model.addAttribute("categorias", categoriaRepository.findAll());
+            return "camiseta/edit"; 
         } else {
-            model.addAttribute("titulo", "Error");
-            model.addAttribute("mensaje", "Camiseta no encontrada.");
-            return "error";
+            model.addAttribute("titulo", "Error de Edición");
+            model.addAttribute("mensaje", "Camiseta no encontrada para editar.");
+            return "error"; 
         }
     }
 
     // RUTA: POST /admin/camiseta/edit/{id} -> editCamiseta()
-    // Nota: El método 'save' de JPA se usa para crear y actualizar. 
-    // Si el objeto tiene ID, actualiza; si no, crea.
     @PostMapping("/edit/{id}") 
     public String editCamiseta(@ModelAttribute("camiseta") Camiseta camiseta) {
-        CamisetaRepository.save(camiseta);
+        camisetaRepository.save(camiseta);
         return "redirect:/admin/camiseta";
     }
 
     // RUTA: GET /admin/camiseta/del/{id} -> delCamisetaForm()
     @GetMapping("/del/{id}")
-    public String delCamisetaForm(@PathVariable("id") Long id, Model model) {
-        Optional<Camiseta> oCamiseta = CamisetaRepository.findById(id);
+    public String delCamisetaForm(@PathVariable("id") Integer id, Model model) {
+        Optional<Camiseta> oCamiseta = camisetaRepository.findById(id);
         if (oCamiseta.isPresent()) {
             model.addAttribute("camiseta", oCamiseta.get());
-            return "admin/camisetas-del"; // Vista de confirmación
+            return "camiseta/del"; 
         } else {
-            model.addAttribute("titulo", "Error");
-            model.addAttribute("mensaje", "Camiseta no encontrada.");
+            model.addAttribute("titulo", "Error de Borrado");
+            model.addAttribute("mensaje", "Camiseta no encontrada para borrado.");
             return "error";
         }
     }
 
     // RUTA: POST /admin/camiseta/del/{id} -> delCamiseta()
     @PostMapping("/del/{id}")
-    public String delCamiseta(@PathVariable("id") Long id) {
-        CamisetaRepository.deleteById(id);
+    public String delCamiseta(@PathVariable("id") Integer id) {
+        camisetaRepository.deleteById(id);
         return "redirect:/admin/camiseta";
     }
 
-    // RUTA PARA MAESTRO-DETALLE
-    // GET /admin/camiseta/categoria/{id}
+    // RUTA PARA MAESTRO-DETALLE: GET /admin/camiseta/categoria/{id}
     @GetMapping("/categoria/{id}")
-    public String findByCategoria(@PathVariable("id") Long id, Model model) {
-        Optional<Categoria> oCategoria = CategoriaRepository.findById(id);
+    public String findByCategoria(@PathVariable("id") Integer id, Model model) {
+        // Ahora el id es Integer, que es lo que espera CategoriaRepository
+        Optional<Categoria> oCategoria = categoriaRepository.findById(id); 
         if (oCategoria.isPresent()) {
             Categoria categoria = oCategoria.get();
-            // Utiliza el método de repositorio personalizado
-            List<Camiseta> camisetas = CamisetaRepository.findByCategoria(categoria);
+            // Esta línea asume que tu repositorio tiene un método customizado:
+            List<Camiseta> camisetas = camisetaRepository.findByCategoria(categoria); 
             
-            model.addAttribute("categorias", CategoriaRepository.findAll()); // Lista de maestros
-            model.addAttribute("categoriaSeleccionada", categoria);   // Maestro seleccionado
-            model.addAttribute("camisetas", camisetas);               // Detalles (camisetas)
+            model.addAttribute("categorias", categoriaRepository.findAll()); 
+            model.addAttribute("categoriaSeleccionada", categoria);   
+            model.addAttribute("camisetas", camisetas);               
             
             return "admin/maestro-detalle-camisetas"; 
         } else {
@@ -110,5 +113,4 @@ public class ControCamiseta {
             return "error";
         }
     }
-
 }

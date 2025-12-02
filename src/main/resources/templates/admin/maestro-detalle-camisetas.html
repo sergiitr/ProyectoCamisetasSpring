@@ -1,56 +1,49 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Maestro-Detalle: Camisetas por Categoría</title>
-    <th:block th:replace="~{fragmentos/general.html :: headerfiles}"></th:block>
+    <meta charset="UTF-8">
+    <title>Camisetas por Categoría</title>
 </head>
 <body>
-    <div th:replace="~{fragmentos/general.html :: navigation}"></div>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-3">
-                <h4 class="mt-3">Categorías</h4>
-                <div class="list-group">
-                    <a th:each="cat : ${categorias}" 
-                       th:href="@{/admin/camiseta/categoria/{id}(id=${cat.id})}" 
-                       th:classappend="${categoriaSeleccionada != null and categoriaSeleccionada.id == cat.id} ? 'active'"
-                       class="list-group-item list-group-item-action">
-                        <span th:text="${cat.nombre}">Nombre Categoría</span>
-                    </a>
-                </div>
-            </div>
+    <h1>Filtrar Camisetas por Categoría</h1>
 
-            <div class="col-md-9">
-                <h4 class="mt-3" th:if="${categoriaSeleccionada != null}">
-                    Camisetas en <span th:text="${categoriaSeleccionada.nombre}">Categoría Seleccionada</span>
-                </h4>
-                <h4 class="mt-3" th:unless="${categoriaSeleccionada != null}">
-                    Selecciona una categoría...
-                </h4>
-                
-                <div th:if="${categoriaSeleccionada != null}">
-                    <table class="table table-striped mt-3">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nombre</th>
-                                <th>Precio</th>
-                                <th>Talla</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr th:each="c : ${camisetas}">
-                                <td th:text="${c.id}">1</td>
-                                <td th:text="${c.nombre}">Camiseta de Algodón</td>
-                                <td th:text="${c.precio}">25.00</td>
-                                <td th:text="${c.talla}">L</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div th:replace="~{fragmentos/general.html :: footer}"></div>
+    <label for="categoriaSelect">Categoría Maestra:</label>
+    <select id="categoriaSelect" onchange="window.location.href = this.value">
+        <option th:each="cat : ${categorias}" 
+                th:value="@{/admin/camiseta/categoria/{id}(id=${cat.id})}" 
+                th:text="${cat.nombre}"
+                th:selected="${categoriaSeleccionada != null and cat.id == categoriaSeleccionada.id}">
+            Nombre Categoría
+        </option>
+    </select>
+    
+    <hr/>
+
+    <h2>Camisetas en la Categoría: 
+        <span th:text="${categoriaSeleccionada.nombre}"></span>
+    </h2>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Marca</th>
+                <th>Precio</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="camiseta : ${camisetas}">
+                <td th:text="${camiseta.id}">1</td>
+                <td th:text="${camiseta.marca}">Adidas</td>
+                <td th:text="${camiseta.precio}">25.50</td>
+                <td>
+                    <a th:href="@{/admin/camiseta/edit/{id}(id=${camiseta.id})}">Editar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <a th:href="@{/admin}">← Volver al Panel Principal</a>
 </body>
 </html>

@@ -24,5 +24,4 @@ public class AdminController {
         // Busca y renderiza la plantilla en: src/main/resources/templates/admin/productos.html
         return "admin/productos";
     }
-    
 }
