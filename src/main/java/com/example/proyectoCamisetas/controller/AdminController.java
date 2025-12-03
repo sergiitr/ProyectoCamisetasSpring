@@ -1,27 +1,44 @@
-// Archivo: src/main/java/com/example/proyectoCamisetas/controller/AdminController.java
-
 package com.example.proyectoCamisetas.controller;
 
+import com.example.proyectoCamisetas.entity.Camiseta;
+import com.example.proyectoCamisetas.repository.CamisetaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
-@RequestMapping("/admin") // Las peticiones que empiecen por /admin vendrán aquí
+@RequestMapping("/admin") 
 public class AdminController {
 
-    // Este método maneja GETs a http://localhost:8080/admin
+    // 1. Inyectamos el repositorio para poder usar la Base de Datos
+    @Autowired
+    private CamisetaRepository camisetaRepository;
+
     @GetMapping({"", "/"}) 
     public String adminHome() {
-        // Busca y renderiza la plantilla en: src/main/resources/templates/admin/index.html
         return "admin/index"; 
     }
 
-    // Si tuvieras un panel de gestión de productos:
-    // Este método maneja GETs a http://localhost:8080/admin/productos
-    @GetMapping("/productos") 
-    public String adminProductos() {
-        // Busca y renderiza la plantilla en: src/main/resources/templates/admin/productos.html
-        return "admin/productos";
+    // Si entran a /admin/camiseta, mejor redirigirlos a la lista directamente
+    @GetMapping("/camiseta") 
+    public String adminCamisetas() {
+        return "redirect:/admin/camiseta/list";
+    }
+
+    // 2. Método para listar (CORREGIDO)
+    @GetMapping("/camiseta/list") 
+    public String listCamisetas(Model model) { // Se añade "Model model" aquí
+        // Obtenemos la lista de la BD
+        List<Camiseta> lista = camisetaRepository.findAll();
+        
+        // Pasamos la lista a la vista
+        model.addAttribute("camisetas", lista);
+        
+        // 3. Renderiza: src/main/resources/templates/admin/camiseta/list.html
+        return "admin/camiseta/list";
     }
 }
