@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Confirmar Borrado</title>
-</head>
-<body>
-    <h1>Confirmar Borrado de Camiseta</h1>
+    <head>
+        <meta charset="UTF-8">
+        <title>Confirmar Borrado</title>
+    </head>
+    <body>
+        <h1>Confirmar Borrado de Camiseta</h1>
 
-    <p>¿Estás seguro de que quieres borrar la camiseta ID: <span th:text="${camiseta.id}"></span>?</p>
-    <p>Marca: <span th:text="${camiseta.marca}"></span></p>
+        <p>¿Estás seguro de que quieres borrar la camiseta ID: <span th:text="${camiseta.id}"></span>?</p>
+        <p>Marca: <span th:text="${camiseta.marca}"></span></p>
 
-    <form th:action="@{/admin/camiseta/del/{id}(id=${camiseta.id})}" method="post">
-        <button type="submit">SÍ, BORRAR</button>
-        <a th:href="@{/admin/camiseta}">NO, Cancelar</a>
-    </form>
-</body>
+        <form th:action="@{/admin/camiseta/del/{id}(id=${camiseta.id})}" method="post">
+            <button type="submit">SÍ, BORRAR</button>
+            <a th:href="@{/admin/camiseta}">NO, Cancelar</a>
+        </form>
+    </body>
 </html>

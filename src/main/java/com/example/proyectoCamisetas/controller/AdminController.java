@@ -52,15 +52,12 @@ public class AdminController {
             // Pasamos las categorías para el desplegable
             model.addAttribute("listaCategorias", categoriaRepository.findAll());
             return "admin/camiseta/edit"; 
-        } else {
+        } else
             return "redirect:/admin/camiseta/list";
-        }
     }
 
     @PostMapping("/camiseta/save")
-    public String saveCamiseta(@ModelAttribute Camiseta camiseta, 
-                               @RequestParam(value = "categoriaId", required = false) Integer categoriaId) {
-        
+    public String saveCamiseta(@ModelAttribute Camiseta camiseta, @RequestParam(value = "categoriaId", required = false) Integer categoriaId) { 
         // 1. COMPROBACIÓN DE SEGURIDAD
         // Imprimimos en consola para ver si llega el ID (puedes verlo en tu terminal)
         System.out.println("Intentando guardar camiseta con ID: " + camiseta.getId());
@@ -77,7 +74,6 @@ public class AdminController {
         // Al tener camiseta.getId() relleno (gracias al input hidden),
         // .save() hará un UPDATE en la base de datos automáticamente.
         camisetaRepository.save(camiseta);
-        
         return "redirect:/admin/camiseta/list";
     }
 }
