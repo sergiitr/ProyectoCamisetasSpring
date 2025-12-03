@@ -1,29 +1,61 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title th:text="'Editar Camiseta (ID: ' + ${camiseta.id} + ')'">Editar Camiseta</title>
+    <title>Editar Camiseta</title>
 </head>
 <body>
-    <h1 th:text="'Editar Camiseta (ID: ' + ${camiseta.id} + ')'">Editar Camiseta</h1>
 
-    <form th:action="@{/admin/camiseta/edit/{id}(id=${camiseta.id})}" th:object="${camiseta}" method="post">
+    <h2>Editar Camiseta</h2>
+
+    <form th:action="@{/admin/camiseta/save}" th:object="${camiseta}" method="post">
         
-        <input type="hidden" th:field="*{id}"> <label for="marca">Marca:</label>
-        <input type="text" id="marca" th:field="*{marca}" required><br/><br/>
+        <input type="hidden" th:field="*{id}" />
 
-        <label for="categoria">Categoría:</label>
-        <select id="categoria" th:field="*{categoria}" required>
-            <option th:each="cat : ${categorias}" 
-                    th:value="${cat.id}" 
-                    th:text="${cat.nombre}">Nombre de Categoría</option>
-        </select><br/><br/>
+        <div>
+            <label>Nombre:</label>
+            <input type="text" th:field="*{nombre}" required/>
+        </div>
 
-        <label for="precio">Precio:</label>
-        <input type="number" id="precio" th:field="*{precio}" step="0.01" required><br/><br/>
+        <div>
+            <label>Marca:</label>
+            <input type="text" th:field="*{marca}" />
+        </div>
 
-        <button type="submit">Actualizar</button>
+        <div>
+            <label>Color:</label>
+            <input type="text" th:field="*{color}" required/>
+        </div>
+
+        <div>
+            <label>Talla:</label>
+            <input type="text" th:field="*{talla}" />
+        </div>
+        
+        <div>
+            <label>Precio:</label>
+            <input type="number" step="0.01" th:field="*{precio}" />
+        </div>
+
+        <div>
+            <label>Stock:</label>
+            <input type="number" th:field="*{stock}" />
+        </div>
+
+        <div>
+            <label>Categoría:</label>
+            <select name="categoriaId" class="form-control">
+                <option th:each="cat : ${listaCategorias}" 
+                        th:value="${cat.id}" 
+                        th:text="${cat.nombre}"
+                        th:selected="${camiseta.categoria != null and cat.id == camiseta.categoria.id}">
+                </option>
+            </select>
+        </div>
+
+        <br>
+        <button type="submit">Guardar Cambios</button>
+        <a th:href="@{/admin/camiseta/list}">Cancelar</a>
     </form>
-    <a th:href="@{/admin/camiseta}">Cancelar y Volver al Listado</a>
+
 </body>
 </html>
