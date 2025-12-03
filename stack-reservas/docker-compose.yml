@@ -1,11 +1,11 @@
-services:
+services: 
   db-reservas:
     image: mysql:latest
     restart: "no"
     environment:
-      MYSQL_ROOT_PASSWORD: s83n38DGB8d72
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD} 
     ports:
-      - 3307:3306  # <--- Mapea el puerto 3306 interno al 3307 externo
+      - ${MYSQL_HOST_PORT}:${MYSQL_CONTAINER_PORT}
     volumes:
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
 
@@ -13,4 +13,4 @@ services:
     image: adminer:latest
     restart: "no"
     ports:
-      - 8181:8080
+      - ${ADMINER_HOST_PORT}:${ADMINER_CONTAINER_PORT}    
