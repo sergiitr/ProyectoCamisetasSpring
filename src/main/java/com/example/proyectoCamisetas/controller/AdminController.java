@@ -5,8 +5,8 @@ import com.example.proyectoCamisetas.entity.Categoria;
 import com.example.proyectoCamisetas.repository.CamisetaRepository;
 import com.example.proyectoCamisetas.repository.CategoriaRepository;
 import org.springframework.transaction.annotation.Transactional;
-import jakarta.persistence.EntityManager; // <-- Nuevo Import
-import jakarta.persistence.PersistenceContext; // <-- Nuevo Import
+import jakarta.persistence.EntityManager; 
+import jakarta.persistence.PersistenceContext; 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +18,6 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/admin") 
 public class AdminController {
-
     @Autowired
     private CamisetaRepository camisetaRepository;
 
@@ -38,6 +37,13 @@ public class AdminController {
         return "admin/camiseta/list";
     }
 
+    @GetMapping("/camiseta/add")
+    public String addCamisetaForm(Model model) {
+        model.addAttribute("camiseta", new Camiseta()); 
+        model.addAttribute("listaCategorias", categoriaRepository.findAll()); 
+        return "admin/camiseta/add";
+    }
+
     @GetMapping("/camiseta/edit/{id}")
     public String editCamisetaForm(@PathVariable("id") Integer id, Model model) {
         Optional<Camiseta> oCamiseta = camisetaRepository.findById(id);
@@ -50,16 +56,14 @@ public class AdminController {
             return "redirect:/admin/camiseta/list";
     }
 
-    @PostMapping("/camiseta/save")
+    @PostMapping({"/camiseta/save", "/camiseta/add"})
     public String saveCamiseta(@ModelAttribute Camiseta camiseta, @RequestParam(value = "categoriaId", required = false) Integer categoriaId) { 
         
-        // Asigno Categoría de forma manual para evitar errores de conversión
         if (categoriaId != null) {
             Categoria categoriaSeleccionada = categoriaRepository.findById(categoriaId).orElse(null);
             camiseta.setCategoria(categoriaSeleccionada);
         }
 
-        // Actualizo o creo en la BBDD
         camisetaRepository.save(camiseta);
         return "redirect:/admin/camiseta/list";
     }
@@ -70,7 +74,7 @@ public class AdminController {
         if (oCamiseta.isPresent()) {
             model.addAttribute("camiseta", oCamiseta.get());
             return "admin/camiseta/del"; 
-        } else
+        } else 
             return "redirect:/admin/camiseta/list";
     }
 
