@@ -1,12 +1,38 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>Listado de Categorías</title>
     </head>
     <body>
         <div th:replace="fragments/navbar :: navbar"></div>
-        <h1>Prueba list</h1>
-        </body>
+        <h1>Gestión de Categorías</h1>
+        <a th:href="@{/admin/categoria/add}">Añadir Nueva Categoría</a>
+        <hr/>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="cat : ${categorias}">
+                    <td th:text="${cat.id}">1</td>
+                    <td th:text="${cat.nombre}">Deportiva</td>
+                    <td>
+                        <a th:href="@{/admin/categoria/edit/{id}(id=${cat.id})}">Editar</a> 
+                        |
+                        <a th:href="@{/admin/categoria/del/{id}(id=${cat.id})}">Borrar</a>
+                        |
+                        <a th:href="@{/admin/categoria/{id}/camisetas(id=${cat.id})}">Ver Camisetas</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <a th:href="@{/admin}">← Volver al Panel Principal</a>
+    </body>
 </html>
