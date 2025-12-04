@@ -5,10 +5,9 @@
 
 ---
 
-## 🚀 Tecnología Utilizada
-- **Backend Framework:** Spring Boot 3.x  
-- **Lenguaje:** Java 21+  
-- **Persistencia:** Spring Data JPA / Hibernate  
+## Tecnología Utilizada
+- **Backend Framework:** Spring Boot  
+- **Lenguaje:** Java 17
 - **Base de Datos:** MySQL  
 - **Vistas (Admin UI):** Thymeleaf  
 - **Contenedores:** Docker Compose (para la BBDD)  
@@ -16,7 +15,7 @@
 
 ---
 
-## ✨ Funcionalidades Clave
+## Funcionalidades Clave
 
 ### I. Gestión de Camisetas (`/admin/camiseta`)
 🔹 CRUD Completo: Listar ➜ Crear ➜ Editar ➜ Borrar  
@@ -36,9 +35,9 @@ Los formularios de edición incluyen un input oculto para enviar correctamente e
 
 ---
 
-## ⚙️ Configuración e Instalación Local
+## Configuración e Instalación Local
 
-### 1️⃣ Requisitos Previos
+### 1 Requisitos Previos
 Debes tener instalado:
 - Java JDK 21+
 - Apache Maven
@@ -46,7 +45,7 @@ Debes tener instalado:
 
 ---
 
-### 2️⃣ Base de Datos con Docker
+### 2 Base de Datos con Docker
 Asegúrate de tener el script SQL actualizado con la estructura final.
 
 Ejecuta en el directorio donde se encuentre `docker-compose.yml`:
@@ -57,7 +56,7 @@ sudo docker compose up -d
 
 ---
 
-### Ejecución de la Aplicación
+### 3 Ejecución de la Aplicación
 
 Configura las credenciales y puerto MySQL en application.properties
 (por defecto MySQL en localhost:3306)
