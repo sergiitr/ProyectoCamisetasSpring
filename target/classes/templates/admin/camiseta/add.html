@@ -5,7 +5,7 @@
         <title>Añadir Camiseta</title>
     </head>
     <body>
-        <div th:replace="fragments/navbar :: navbar"></div>
+        <div th:replace="fragments/navbar :: navbar-fragment"></div>
         <h1>Añadir Nueva Camiseta</h1>
         <form th:action="@{/admin/camiseta/add}" th:object="${camiseta}" method="post">
             
