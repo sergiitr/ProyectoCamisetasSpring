@@ -1,26 +1,19 @@
 CREATE DATABASE IF NOT EXISTS `camisetas`;
 USE `camisetas`;
 
--- DROP TABLES (Orden inverso por dependencias)
 DROP TABLE IF EXISTS `linea_pedido`;
 DROP TABLE IF EXISTS `pedido`;
 DROP TABLE IF EXISTS `usuario`;
 
 DROP TABLE IF EXISTS `camiseta`;
 DROP TABLE IF EXISTS `categoria`; 
--- (Orden de dropeo corregido: dependientes primero, maestros al final)
-
--- ===============================================
--- 1. CREACIÓN DE TABLAS MAESTRAS
--- ===============================================
 
 CREATE TABLE IF NOT EXISTS `categoria` (
-    `id` BIGINT AUTO_INCREMENT PRIMARY KEY,
-    `descripcion` VARCHAR(255) NULL,
-    `nombre` VARCHAR(255) NULL,
-    `padre_id` BIGINT NULL,
-    
-    FOREIGN KEY (`padre_id`) REFERENCES `categoria`(`id`)
+  `id` BIGINT AUTO_INCREMENT PRIMARY KEY,
+  `descripcion` VARCHAR(255) NULL,
+  `nombre` VARCHAR(255) NULL,
+  `padre_id` BIGINT NULL,
+  FOREIGN KEY (`padre_id`) REFERENCES `categoria`(`id`)
 ); 
 
 CREATE TABLE `camiseta` (
@@ -31,20 +24,13 @@ CREATE TABLE `camiseta` (
   `marca` VARCHAR(50) NOT NULL,
   `stock` INT UNSIGNED NOT NULL DEFAULT 0,
   `precio` DECIMAL(8,2) NOT NULL,
-  `activo` BOOLEAN,
-  
-  -- Añadir campos faltantes en DB para que coincidan con la entidad Java
+  `activo` BOOLEAN,  
   `nombre` VARCHAR(255) NULL, 
-  `descripcion` VARCHAR(255) NULL, 
-  
-  -- Clave foránea
+  `descripcion` VARCHAR(255) NULL,   
   `categoria_id` BIGINT, 
-  
   PRIMARY KEY (`id`),
   
-  CONSTRAINT `fk_camiseta_categoria` 
-    FOREIGN KEY (`categoria_id`) 
-    REFERENCES `categoria`(`id`)
+  CONSTRAINT `fk_camiseta_categoria` FOREIGN KEY (`categoria_id`) REFERENCES `categoria`(`id`)
 );
 
 
@@ -83,18 +69,11 @@ CREATE TABLE `linea_pedido` (
 ); 
 
 
--- ===============================================
--- 2. INSERCIÓN DE DATOS (ORDEN CORREGIDO)
--- ===============================================
-
--- A. Insertar Usuarios
 INSERT INTO `usuario` (`id`, `username`, `password`, `email`, `telefono`, `direccion`, `activo`, `tipo`) VALUES
 (1, 'pepe', '$2a$10$czRAAeghw4UntjfS4etcgOfCwXypg/PRC.MmfadS8qN1PRWlEJiI2', 'juansinmiedo@sincorreo.com', '555123456',  'Paseo de la Estación 44, 23008, JAEN', 1,  'OPERADOR'),
 (13,  'pepito', '$2b$10$.zbmFav.W7ZYXvuNerc4J.Saygg9JRE2mEudBrB1Cy71DwbBkJxcG', 'pepe@sinninguncorreo.com', '123-456-789',  'Paseo de la Estación 44, 23008, JAEN', 1,  'CLIENTE');
 
 
--- B. Insertar Categorías (MAESTRO)
--- Nota: La numeración auto-incremental comienza en 1. ID 4 existirá.
 INSERT INTO `categoria` (`id`, `nombre`, `descripcion`, `padre_id`) VALUES
 (1, 'Deporte', 'Todas las camisetas de estilo deportivo para entrenamiento y rendimiento.', NULL),
 (2, 'Casual', 'Camisetas diseñadas para el uso diario y la moda casual.', NULL),
@@ -109,7 +88,6 @@ INSERT INTO `categoria` (`id`, `nombre`, `descripcion`, `padre_id`) VALUES
 ALTER TABLE `categoria` AUTO_INCREMENT = 10;
 
 
--- C. Insertar Camisetas (DETALLE) - Ahora la referencia a la categoría (e.g., ID 4) ya existe.
 INSERT INTO `camiseta` (`id`, `talla`, `sexo`, `color`, `marca`, `stock`, `precio`, `activo`, `categoria_id`, `nombre`, `descripcion`) VALUES
 (1, 'xs', 'chico',  '#e01b24',  'Adidas', 3,  20.00,  1, 4, 'Camiseta Roja', NULL),
 (2, 'xs', 'chico',  '#a0aba4',  'Puma', 10, 15.00,  0, 4, 'Camiseta Gris', NULL),
@@ -117,4 +95,3 @@ INSERT INTO `camiseta` (`id`, `talla`, `sexo`, `color`, `marca`, `stock`, `preci
 (4, 'xxs',  'nina', '#ed333b',  'Puma', 12, 12.00,  1, 1, 'Camiseta Niña Roja', NULL),
 (5, 'xxl',  'nino', '#f9f06b',  'Adidas', 12, 34.00,  1, 5, 'Camiseta Niño Amarilla', NULL),
 (14,  'xs', 'unisex', '#e66100',  'Adidas', 3,  6.00, 1, 2, 'Camiseta Naranja', NULL);
-

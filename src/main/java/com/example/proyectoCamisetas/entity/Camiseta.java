@@ -11,7 +11,6 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Table(name = "camiseta")
 public class Camiseta {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

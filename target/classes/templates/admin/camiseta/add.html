@@ -8,7 +8,6 @@
         <div th:replace="fragments/navbar :: navbar-fragment"></div>
         <h1>Añadir Nueva Camiseta</h1>
         <form th:action="@{/admin/camiseta/add}" th:object="${camiseta}" method="post">
-            
             <div>
                 <label for="nombre">Nombre:</label>
                 <input type="text" id="nombre" th:field="*{nombre}" required><br/>
@@ -51,11 +50,12 @@
                     <option th:each="cat : ${listaCategorias}" 
                             th:value="${cat.id}" 
                             th:text="${cat.nombre}">Nombre de Categoría</option>
-                </select><br/>
+                </select>
+                <br/>
             </div>
 
             <button type="submit">Guardar</button>
         </form>
-        <a th:href="@{/admin/camiseta}">Cancelar y Volver al Listado</a>
+        <a th:href="@{/admin/camiseta}">Volver al Listado</a>
     </body>
 </html>

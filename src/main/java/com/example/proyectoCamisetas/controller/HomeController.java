@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController {
 
     /**
-     * Maneja la ruta raíz (http://localhost:8080/) y REDIRIGE a /admin, ya que es la primera página real de la aplicación.
+     * Maneja la ruta raíz (http://localhost:8080/) y redirige a /admin, dado que es la primera página de la aplicación.
      */
     @GetMapping("/")
     public String home() {

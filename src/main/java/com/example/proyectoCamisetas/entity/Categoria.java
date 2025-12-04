@@ -3,7 +3,7 @@ package com.example.proyectoCamisetas.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString; // Necesario para evitar bucles de referencia con Lombok
+import lombok.ToString;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -19,8 +19,7 @@ public class Categoria {
 
     private String nombre;
     
-    // RELACIÓN INVERSA: UNA categoría tiene MUCHAS camisetas
-    @OneToMany(mappedBy = "categoria") // 'categoria' es el campo en la entidad Camiseta.java
-    @ToString.Exclude // Evita StackOverflowError cuando Lombok llama a toString()
+    @OneToMany(mappedBy = "categoria")
+    @ToString.Exclude
     private List<Camiseta> camisetas = new ArrayList<>();
 }
