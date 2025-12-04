@@ -1,11 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>Confirmar Borrado</title>
+        <th:block th:replace="fragments/navbar :: navbar-style" />
     </head>
     <body>
-        <h1>Prueba del</h1>
+        <div th:replace="fragments/navbar :: navbar-fragment"></div>
+        
+        <h1>Confirmar Borrado de Categoría</h1>
+
+        <p>¿Estás seguro de que quieres borrar la categoría ID: <span th:text="${categoria.id}">99</span>?</p>
+        <p>Nombre: <strong th:text="${categoria.nombre}">[Nombre de Categoría]</strong></p>
+
+        <p style="color: red; font-weight: bold;">Si hay camisetas asociadas a esta categoría, el borrado fallará.</p>
+
+        <form th:action="@{/admin/categoria/del/{id}(id=${categoria.id})}" method="post">
+            
+            <button type="submit" style="background: red; color: white; padding: 10px 15px; border: none; cursor: pointer;">SÍ, BORRAR CATEGORÍA</button>
+            
+            <a th:href="@{/admin/categoria/list}" style="margin-left: 20px;">NO, Cancelar</a>
+        </form>
     </body>
 </html>
