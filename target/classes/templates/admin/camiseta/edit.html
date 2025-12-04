@@ -4,6 +4,7 @@
         <title>Editar Camiseta</title>
     </head>
     <body>
+        <div th:replace="fragments/navbar :: navbar"></div>
         <h2>Editar Camiseta</h2>
         <form th:action="@{/admin/camiseta/save}" th:object="${camiseta}" method="post">
             <input type="hidden" th:field="*{id}" />
