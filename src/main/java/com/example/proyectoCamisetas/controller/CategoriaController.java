@@ -79,4 +79,13 @@ public class CategoriaController {
         model.addAttribute("camisetas", categoria.getCamisetas()); 
         return "admin/categoria/detalle";
     }
+
+    @GetMapping("/{id}/camisetas")
+    public String detalle(@PathVariable Integer id, Model model) {
+        Categoria categoria = categoriaRepo.findById(id).orElseThrow();
+        model.addAttribute("categoria", categoria);
+        // Esta línea funcionará porque Categoria.java ya tiene la lista @OneToMany
+        model.addAttribute("camisetas", categoria.getCamisetas()); 
+        return "admin/categoria/detalle"; // Apunta a la vista de arriba
+    }
 }

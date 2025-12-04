@@ -1,11 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>Detalle de Categoría</title>
+        <th:block th:replace="fragments/navbar :: navbar-style" />
     </head>
     <body>
-        <h1>Prueba detalle</h1>
+        <div th:replace="fragments/navbar :: navbar-fragment"></div>
+        
+        <h1>Detalle de Categoría: <span th:text="${categoria.nombre}"></span></h1>
+        <p>ID de Categoría: <span th:text="${categoria.id}"></span></p>
+        <hr/>
+        
+        <h2>👕 Camisetas Asociadas:</h2>
+        
+        <div th:if="${camisetas.empty}">
+            <p>No hay camisetas asignadas a esta categoría.</p>
+        </div>
+        
+        <div th:unless="${camisetas.empty}">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID Camiseta</th>
+                        <th>Nombre</th>
+                        <th>Marca</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="c : ${camisetas}">
+                        <td th:text="${c.id}"></td>
+                        <td th:text="${c.nombre}"></td>
+                        <td th:text="${c.marca}"></td>
+                        <td th:text="${c.precio}"></td>
+                        <td th:text="${c.stock}"></td>
+                        <td>
+                            <a th:href="@{/admin/camiseta/edit/{id}(id=${c.id})}">Editar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <br>
+        <a th:href="@{/admin/categoria}">← Volver al Listado de Categorías</a>
     </body>
 </html>
