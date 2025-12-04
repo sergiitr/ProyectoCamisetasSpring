@@ -25,15 +25,12 @@ public class AdminController {
     @Autowired
     private CategoriaRepository categoriaRepository;
     
-    // INYECTAMOS ENTITY MANAGER para borrado robusto
     @PersistenceContext
     private EntityManager entityManager; 
 
-    // Home del admin y Redirecciones
     @GetMapping({"", "/"}) public String adminHome() { return "admin/index"; }
     @GetMapping("/camiseta") public String adminCamisetas() { return "redirect:/admin/camiseta/list"; }
 
-    // 1. LISTAR
     @GetMapping("/camiseta/list") 
     public String listCamisetas(Model model) { 
         List<Camiseta> lista = camisetaRepository.findAll();
@@ -41,7 +38,6 @@ public class AdminController {
         return "admin/camiseta/list";
     }
 
-    // 2. EDITAR (GET)
     @GetMapping("/camiseta/edit/{id}")
     public String editCamisetaForm(@PathVariable("id") Integer id, Model model) {
         Optional<Camiseta> oCamiseta = camisetaRepository.findById(id);
@@ -54,50 +50,38 @@ public class AdminController {
             return "redirect:/admin/camiseta/list";
     }
 
-    // 3. GUARDAR (POST) - Lógica de actualización robusta
     @PostMapping("/camiseta/save")
-    public String saveCamiseta(@ModelAttribute Camiseta camiseta, 
-                               @RequestParam(value = "categoriaId", required = false) Integer categoriaId) { 
+    public String saveCamiseta(@ModelAttribute Camiseta camiseta, @RequestParam(value = "categoriaId", required = false) Integer categoriaId) { 
         
-        // 1. Asignar Categoría de forma manual para evitar errores de conversión
+        // Asigno Categoría de forma manual para evitar errores de conversión
         if (categoriaId != null) {
             Categoria categoriaSeleccionada = categoriaRepository.findById(categoriaId).orElse(null);
             camiseta.setCategoria(categoriaSeleccionada);
         }
 
-        // 2. Actualizar o Crear en BBDD
+        // Actualizo o creo en la BBDD
         camisetaRepository.save(camiseta);
         return "redirect:/admin/camiseta/list";
     }
 
-    // 4. CONFIRMAR BORRADO (GET)
     @GetMapping("/camiseta/del/{id}")
     public String deleteCamisetaForm(@PathVariable("id") Integer id, Model model) {
         Optional<Camiseta> oCamiseta = camisetaRepository.findById(id);
         if (oCamiseta.isPresent()) {
             model.addAttribute("camiseta", oCamiseta.get());
             return "admin/camiseta/del"; 
-        } else {
+        } else
             return "redirect:/admin/camiseta/list";
-        }
     }
 
-    // 5. EJECUTAR BORRADO (POST) - SOLUCIÓN A LA LLAVE FORÁNEA
     @PostMapping("/camiseta/del/{id}")
     @Transactional
     public String deleteCamisetaData(@PathVariable("id") Integer id) {
-        // En lugar de deleteById (que fallaba), traemos la entidad y la borramos
-        // usando el EntityManager para gestionar mejor las dependencias huérfanas
-        // de la tabla camiseta_categoria que aún existe.
         Camiseta camiseta = camisetaRepository.findById(id).orElse(null);
-        
         if (camiseta != null) {
             entityManager.remove(camiseta);
-            // Esto es crucial para forzar la sincronización y la limpieza de relaciones huérfanas
-            // ANTES de que la transacción termine y falle el commit.
             entityManager.flush(); 
         }
-        
         return "redirect:/admin/camiseta/list";
     }
 }
