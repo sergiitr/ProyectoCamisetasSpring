@@ -16,6 +16,7 @@ public class Camiseta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    // Campos añadidos según el esquema de BBDD
     private String nombre;
     private String descripcion;
     
@@ -23,15 +24,15 @@ public class Camiseta {
     private String marca;
     private String talla;
     @Column(length = 50)
-    private String color;
+    private String color; // Campo NOT NULL
     private String sexo;
     private BigDecimal precio;
     private Integer stock;
     private Boolean activo;
 
-    // RELACIÓN CORRECTA: ManyToOne (Singular)
+    // RELACIÓN Muchos a Uno (La corregida)
     @ManyToOne 
-    @JoinColumn(name = "categoria_id") // Esta columna debe existir en tu BBDD
+    @JoinColumn(name = "categoria_id") 
     @ToString.Exclude
     private Categoria categoria; 
 }

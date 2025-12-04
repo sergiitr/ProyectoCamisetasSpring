@@ -12,7 +12,7 @@
 
         <form th:action="@{/admin/camiseta/del/{id}(id=${camiseta.id})}" method="post">
             <button type="submit">SÍ, BORRAR</button>
-            <a th:href="@{/admin/camiseta}">NO, Cancelar</a>
+            <a th:href="@{/admin/camiseta/list}">NO, Cancelar</a>
         </form>
     </body>
 </html>
