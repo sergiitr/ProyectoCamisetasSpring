@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Editar Categoría</title>
+    </head>
+    <body>
+        <div th:replace="fragments/navbar :: navbar"></div>
+        <h1>Editar Categoría</h1>
+
+        <form th:action="@{/admin/categoria/edit/{id}(id=*{id})}" th:object="${categoria}" method="post">   
+            <input type="hidden" th:field="*{id}" />
+            <div>
+                <label for="nombre">Nombre de la Categoría:</label>
+                <input type="text" id="nombre" th:field="*{nombre}" required><br/><br/>
+            </div>
+            <button type="submit">Guardar Cambios</button>
+        </form>
+        <a th:href="@{/admin/categoria}">← Cancelar y Volver al Listado</a>
+    </body>
+</html>

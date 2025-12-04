@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Añadir Camiseta</title>
+    </head>
+    <body>
+        <div th:replace="fragments/navbar :: navbar-fragment"></div>
+        <h1>Añadir Nueva Camiseta</h1>
+        <form th:action="@{/admin/camiseta/add}" th:object="${camiseta}" method="post">
+            <div>
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" th:field="*{nombre}" required><br/>
+            </div>
+
+            <div>
+                <label for="marca">Marca:</label>
+                <input type="text" id="marca" th:field="*{marca}" required><br/>
+            </div>
+            
+            <div>
+                <label for="color">Color (Hex):</label>
+                <input type="color" id="color" th:field="*{color}" required><br/>
+            </div>
+            
+            <div>
+                <label for="stock">Stock:</label>
+                <input type="number" id="stock" th:field="*{stock}" required><br/>
+            </div>
+
+            <div>
+                <label for="talla">Talla:</label>
+                <input type="text" id="talla" th:field="*{talla}" required><br/>
+            </div>
+            
+            <div>
+                <label for="sexo">Sexo:</label>
+                <input type="text" id="sexo" th:field="*{sexo}" required><br/>
+            </div>
+            
+            <div>
+                <label for="precio">Precio:</label>
+                <input type="number" id="precio" th:field="*{precio}" step="0.01" required><br/>
+            </div>
+
+            <div>
+                <label for="categoria">Categoría:</label>
+                <select id="categoria" name="categoriaId" required>
+                    <option value="">-- Selecciona Categoría --</option>
+                    <option th:each="cat : ${listaCategorias}" 
+                            th:value="${cat.id}" 
+                            th:text="${cat.nombre}">Nombre de Categoría</option>
+                </select>
+                <br/>
+            </div>
+
+            <button type="submit">Guardar</button>
+        </form>
+        <a th:href="@{/admin/camiseta}">Volver al Listado</a>
+    </body>
+</html>

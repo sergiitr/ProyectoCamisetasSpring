@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Añadir Categoría</title>
+        <th:block th:replace="fragments/navbar :: navbar-style" />
+    </head>
+    <body>
+        <div th:replace="fragments/navbar :: navbar-fragment"></div>
+        <h1>Añadir Nueva Categoría</h1>
+
+        <form th:action="@{/admin/categoria/add}" th:object="${categoria}" method="post">
+            <div>
+                <label for="nombre">Nombre de la Categoría:</label>
+                <input type="text" id="nombre" th:field="*{nombre}" required><br/><br/>
+            </div>
+            
+            <button type="submit">Guardar</button>
+        </form>
+        <a th:href="@{/admin/categoria}">Volver al Listado</a>
+    </body>
+</html>
