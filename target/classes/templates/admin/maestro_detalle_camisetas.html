@@ -3,14 +3,24 @@
     <head>
         <meta charset="UTF-8">
         <title>Camisetas por Categoría</title>
+        
+        <th:block th:replace="fragments/navbar :: navbar-style" />
     </head>
     <body>
+        <div th:replace="fragments/navbar :: navbar-fragment"></div>
+        
         <h1>Filtrar Camisetas por Categoría</h1>
 
         <label for="categoriaSelect">Categoría Maestra:</label>
+        
         <select id="categoriaSelect" onchange="window.location.href = this.value">
-            <option th:each="cat : ${categorias}" th:value="@{/admin/camiseta/categoria/{id}(id=${cat.id})}" 
-                    th:text="${cat.nombre}" th:selected="${categoriaSeleccionada != null and cat.id == categoriaSeleccionada.id}">
+            
+            <option th:value="@{/admin/maestro_detalle_camisetas}">--- Mostrar Todas ---</option>
+            
+            <option th:each="cat : ${categorias}" 
+                    th:value="@{/admin/maestro_detalle_camisetas(categoriaId=${cat.id})}" 
+                    th:text="${cat.nombre}" 
+                    th:selected="${categoriaSeleccionada != null and cat.id == cat.id}">
                 Nombre Categoría
             </option>
         </select>
@@ -18,13 +28,14 @@
         <hr/>
 
         <h2>Camisetas en la Categoría: 
-            <span th:text="${categoriaSeleccionada.nombre}"></span>
+            <span th:text="${categoriaSeleccionada != null ? categoriaSeleccionada.nombre : 'Todas las Camisetas'}"></span>
         </h2>
 
         <table border="1">
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Nombre</th>
                     <th>Marca</th>
                     <th>Precio</th>
                     <th>Acciones</th>
@@ -33,6 +44,7 @@
             <tbody>
                 <tr th:each="camiseta : ${camisetas}">
                     <td th:text="${camiseta.id}">1</td>
+                    <td th:text="${camiseta.nombre}">Nombre</td>
                     <td th:text="${camiseta.marca}">Adidas</td>
                     <td th:text="${camiseta.precio}">25.50</td>
                     <td>

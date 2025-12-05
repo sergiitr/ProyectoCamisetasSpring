@@ -1,7 +1,10 @@
 # PROYECTO CAMISETAS: Panel de Administración (Spring Boot + JPA)
 
-## Descripción del Proyecto
 
+## Autor
+Sergio Trillo Rodriguez, estudiante de 2º DAM del IES Virgen del Carmen de Jaén
+
+## Descripción del Proyecto
 **ProyectoCamisetasSpring** es el panel de gestión administrativo (backend) para una tienda de comercio electrónico de camisetas. El objetivo principal es implementar y asegurar la funcionalidad **CRUD** para el inventario de **Camisetas** y el catálogo de **Categorías**, manteniendo la **integridad referencial** en la base de datos.
 
 ---
