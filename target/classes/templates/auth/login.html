@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Iniciar Sesión</title>
+    </head>
+    <body>
+        <h1>Iniciar Sesión</h1>
+        
+        <div th:if="${param.error}" style="color: red;">
+            Nombre de usuario o contraseña inválidos.
+        </div>
+        <div th:if="${param.logout}" style="color: blue;">
+            Sesión cerrada correctamente.
+        </div>
+        <div th:if="${param.registered}" style="color: green;">
+            Registro completado. ¡Inicia sesión!
+        </div>
+
+        <form method="POST" th:action="@{/login}">
+            <div>
+                <label for="username">Usuario:</label>
+                <input type="text" id="username" name="username" required/>
+            </div>
+            <div>
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" required/>
+            </div>
+            <div>
+                <button type="submit">Entrar</button>
+            </div>
+        </form>
+        
+        <p>¿No tienes cuenta? <a th:href="@{/register}">Regístrate aquí</a></p>
+    </body>
+</html>
