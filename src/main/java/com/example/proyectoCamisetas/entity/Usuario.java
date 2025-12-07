@@ -1,4 +1,3 @@
-// src/main/java/com/example/proyectoCamisetas/entity/Usuario.java
 package com.example.proyectoCamisetas.entity;
 
 import jakarta.persistence.*;
@@ -8,7 +7,7 @@ import lombok.AllArgsConstructor;
 
 @Entity
 @Table(name = "usuario")
-@Data // Genera getters, setters, toString, etc.
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Usuario {

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class AuthController {
-
     @Autowired
     private UsuarioRepository usuarioRepository;
 
@@ -42,19 +41,14 @@ public class AuthController {
      */
     @PostMapping("/register")
     public String registerUser(@ModelAttribute Usuario usuario) {
-        
-        // 1. CIFRAR la contraseña
         String encodedPassword = passwordEncoder.encode(usuario.getPassword());
         usuario.setPassword(encodedPassword);
 
-        // 2. Asignar rol por defecto y estado activo
         usuario.setTipo(Usuario.Tipo.CLIENTE); 
         usuario.setActivo(true); 
         
-        // 3. Guardar el nuevo usuario en la BBDD
         usuarioRepository.save(usuario);
 
-        // 4. Redirigir al login
         return "redirect:/login?registered=true";
     }
 }

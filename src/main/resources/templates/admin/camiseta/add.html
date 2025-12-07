@@ -47,9 +47,7 @@
                 <label for="categoria">Categoría:</label>
                 <select id="categoria" name="categoriaId" required>
                     <option value="">-- Selecciona Categoría --</option>
-                    <option th:each="cat : ${listaCategorias}" 
-                            th:value="${cat.id}" 
-                            th:text="${cat.nombre}">Nombre de Categoría</option>
+                    <option th:each="cat : ${listaCategorias}" th:value="${cat.id}" th:text="${cat.nombre}">Nombre de Categoría</option>
                 </select>
                 <br/>
             </div>

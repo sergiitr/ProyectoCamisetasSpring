@@ -68,9 +68,8 @@ public class ClienteController {
         @SuppressWarnings("unchecked")
         Map<Integer, Integer> carrito = (Map<Integer, Integer>) session.getAttribute("carrito");
 
-        if (carrito == null) {
+        if (carrito == null)
             carrito = new HashMap<>();
-        }
         
         carrito.put(id, carrito.getOrDefault(id, 0) + 1);
         

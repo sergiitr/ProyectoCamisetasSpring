@@ -1,4 +1,3 @@
-// src/main/java/com/example/proyectoCamisetas/repository/UsuarioRepository.java
 package com.example.proyectoCamisetas.repository;
 
 import com.example.proyectoCamisetas.entity.Usuario;
