@@ -110,7 +110,6 @@ public class CategoriaController {
             entityManager.remove(categoria);
             entityManager.flush();
         }
-        
         return "redirect:/admin/categoria";
     }
 
