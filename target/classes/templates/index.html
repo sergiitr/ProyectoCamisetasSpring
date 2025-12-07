@@ -1,14 +1,88 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
-        <title>Bienvenido</title>
+        <title>Bienvenido a Camisetas App</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f9;
+                color: #333;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                min-height: 100vh;
+                margin: 0;
+                text-align: center;
+            }
+            .container {
+                background: #fff;
+                padding: 40px 60px;
+                border-radius: 12px;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            }
+            h1 {
+                color: #d9534f;
+                margin-bottom: 5px;
+                font-size: 2.5em;
+            }
+            h2 {
+                color: #5cb85c;
+                margin-top: 0;
+                font-size: 1.2em;
+            }
+            .action-buttons {
+                margin-top: 30px;
+                display: flex;
+                gap: 20px;
+            }
+            .btn {
+                padding: 12px 25px;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+                font-size: 1em;
+                text-decoration: none;
+                transition: background-color 0.3s ease;
+                color: white;
+                display: inline-block;
+            }
+            .btn-login {
+                background-color: #007bff;
+            }
+            .btn-login:hover {
+                background-color: #0056b3;
+            }
+            .btn-register {
+                background-color: #28a745;
+            }
+            .btn-register:hover {
+                background-color: #1e7e34;
+            }
+            .footer-link {
+                margin-top: 25px;
+                font-size: 0.9em;
+                color: #6c757d;
+            }
+        </style>
     </head>
     <body>
-        <h1>¡Bienvenido a Proyecto Camisetas!</h1>
-        <p>El servidor ha iniciado correctamente en el puerto 8080.</p>
-        <a href="./admin/categoria">
-            <button>Ir a otra página</button>
-        </a>
+        <div class="container">
+            <h1>Camisetas App</h1>
+            <h2>Tu destino de moda deportiva y casual.</h2>
+
+            <p style="margin-top: 25px;">Para acceder a tu zona de cliente o administrador, por favor, inicia sesión.</p>
+
+            <div class="action-buttons">
+                <a th:href="@{/login}" class="btn btn-login">Iniciar Sesión</a>
+
+                <a th:href="@{/register}" class="btn btn-register"> Crear Cuenta</a>
+            </div>
+            
+            <div class="footer-link">
+                <p>¿Solo quieres ver el catálogo? <a th:href="@{/cliente/camisetas/list}">Entra como invitado</a></p>
+            </div>
+        </div>
     </body>
 </html>
