@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Zona Cliente</title>
+    </head>
+    <body>
+        <h1>Bienvenido a la Zona Cliente</h1>
+        
+        <p>Selecciona una opción para continuar comprando:</p>
+
+        <h2>Navegación:</h2>
+        <ul>
+            <li>
+                <a th:href="@{/cliente/camisetas/list}">Catálogo de Camisetas</a> 
+                (Listar productos y añadir al carrito)
+            </li>
+            <li>
+                <a th:href="@{/cliente/categorias/list}">Ver Categorías</a>
+                (Explorar tipos de productos)
+            </li>
+            <li>
+                <a th:href="@{/cliente/carrito}">Ir al Carrito de Compras</a>
+                (Revisar cantidades y finalizar compra)
+            </li>
+        </ul>
+        
+        <hr>
+        
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">Cerrar Sesión</button>
+        </form>
+    </body>
+</html>

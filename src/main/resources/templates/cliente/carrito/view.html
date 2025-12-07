@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Tu Carrito de Compras</title>
+    </head>
+    <body>
+        <h1>🛒 Tu Carrito de Compras</h1>
+        
+        <div th:if="${mensaje}" style="color: green; font-weight: bold;">
+            <p th:text="${mensaje}"></p>
+        </div>
+        
+        <div th:if="${items.empty}">
+            <p>Tu carrito está vacío. <a th:href="@{/cliente/camisetas/list}">¡Empieza a comprar!</a></p>
+        </div>
+        
+        <div th:unless="${items.empty}">
+            
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Marca</th>
+                        <th>Precio Unitario</th>
+                        <th>Cantidad</th>
+                        <th>Subtotal</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="item : ${items}">
+                        <td th:text="${item.camiseta.nombre}">Camiseta Negra</td>
+                        <td th:text="${item.camiseta.marca}">Adidas</td>
+                        <td th:text="${item.camiseta.precio}">15.00</td>
+                        
+                        <td>
+                            <form th:action="@{/cliente/carrito/update}" method="post" style="display: flex; gap: 5px;">
+                                <input type="hidden" name="id" th:value="${item.camiseta.id}" />
+                                <input type="number" name="cantidad" th:value="${item.cantidad}" min="0" style="width: 50px;" required />
+                                <button type="submit">Actualizar</button>
+                            </form>
+                        </td>
+                        
+                        <td th:text="${#numbers.formatDecimal(item.subtotal, 1, 2)}">30.00</td>
+                        
+                        <td>
+                            <form th:action="@{/cliente/carrito/update}" method="post">
+                                <input type="hidden" name="id" th:value="${item.camiseta.id}" />
+                                <input type="hidden" name="cantidad" value="0" />
+                                <button type="submit" style="color: red;">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <hr>
+            
+            <h3>Total del Carrito: 
+                <span th:text="${#numbers.formatDecimal(totalGlobal, 1, 2)}">150.00</span> €
+            </h3>
+            
+            <form th:action="@{/cliente/carrito/buy}" method="post">
+                <button type="submit" style="background: green; color: white; padding: 10px 20px;">
+                    Finalizar Compra
+                </button>
+            </form>
+            
+        </div>
+        
+        <p style="margin-top: 20px;"><a th:href="@{/cliente/camisetas/list}">← Seguir Comprando</a></p>
+    </body>
+</html>

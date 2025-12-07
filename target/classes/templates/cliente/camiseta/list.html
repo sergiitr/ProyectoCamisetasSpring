@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Catálogo de Camisetas</title>
+    </head>
+    <body>
+        <h1>Catálogo de Camisetas</h1>
+        
+        <p><a th:href="@{/cliente/carrito}">🛒 Ver Carrito</a></p>
+        <p><a th:href="@{/cliente/categorias/list}">Ver Categorías</a></p>
+        
+        <hr/>
+        
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Marca</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="camiseta : ${camisetas}">
+                    <td th:text="${camiseta.id}">1</td>
+                    <td th:text="${camiseta.nombre}"></td>
+                    <td th:text="${camiseta.marca}">Adidas</td>
+                    <td th:text="${camiseta.precio}">25.50</td>
+                    <td th:text="${camiseta.stock}">10</td>
+                    <td>
+                        <form th:action="@{/cliente/carrito/add/{id}(id=${camiseta.id})}" method="post">
+                            <button type="submit" th:disabled="${camiseta.stock == 0}">
+                                Añadir al carrito
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

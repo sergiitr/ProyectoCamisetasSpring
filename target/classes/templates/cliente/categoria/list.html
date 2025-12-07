@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Categorías de Camisetas</title>
+    </head>
+    <body>
+        <h1>Categorías Disponibles</h1>
+        
+        <p><a th:href="@{/cliente/camisetas/list}">← Volver al Catálogo</a></p>
+        
+        <hr/>
+        
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="cat : ${categorias}">
+                    <td th:text="${cat.id}">1</td>
+                    <td th:text="${cat.nombre}">Deporte</td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>
