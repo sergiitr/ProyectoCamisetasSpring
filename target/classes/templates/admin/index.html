@@ -13,6 +13,10 @@
             <li><a th:href="@{/admin/camiseta/list}">Gestión de Camisetas (CRUD)</a></li>
             <li><a th:href="@{/admin/categoria/list}">Gestión de Categorías (CRUD)</a></li>
             <li><a th:href="@{/admin/maestro_detalle_camisetas}">Consultar Maestro detalle</a></li>
-        </ul>  
+        </ul>
+
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">Cerrar Sesión</button>
+        </form>
     </body>
 </html>
