@@ -8,15 +8,10 @@
     </head>
     <body>
         <div th:replace="fragments/navbar :: navbar-fragment"></div>
-        
         <h1>Filtrar Camisetas por Categoría</h1>
-
         <label for="categoriaSelect">Categoría Maestra:</label>
-        
         <select id="categoriaSelect" onchange="window.location.href = this.value">
-            
             <option th:value="@{/admin/maestro_detalle_camisetas}">--- Mostrar Todas ---</option>
-            
             <option th:each="cat : ${categorias}" 
                     th:value="@{/admin/maestro_detalle_camisetas(categoriaId=${cat.id})}" 
                     th:text="${cat.nombre}" 
@@ -24,9 +19,7 @@
                 Nombre Categoría
             </option>
         </select>
-        
         <hr/>
-
         <h2>Camisetas en la Categoría: 
             <span th:text="${categoriaSeleccionada != null ? categoriaSeleccionada.nombre : 'Todas las Camisetas'}"></span>
         </h2>

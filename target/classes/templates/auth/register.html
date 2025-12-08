@@ -6,9 +6,7 @@
     </head>
     <body>
         <h1>Crear Nueva Cuenta</h1>
-        
         <form th:action="@{/register}" th:object="${usuario}" method="post">
-            
             <div>
                 <label for="username">Usuario (Nombre de Usuario):</label>
                 <input type="text" id="username" th:field="*{username}" required/>

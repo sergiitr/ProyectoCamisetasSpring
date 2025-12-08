@@ -5,7 +5,7 @@
         <title>Tu Carrito de Compras</title>
     </head>
     <body>
-        <h1>🛒 Tu Carrito de Compras</h1>
+        <h1>Tu Carrito de Compras</h1>
         
         <div th:if="${mensaje}" style="color: green; font-weight: bold;">
             <p th:text="${mensaje}"></p>
@@ -15,8 +15,7 @@
             <p>Tu carrito está vacío. <a th:href="@{/cliente/camisetas/list}">¡Empieza a comprar!</a></p>
         </div>
         
-        <div th:unless="${items.empty}">
-            
+        <div th:unless="${items.empty}"> 
             <table border="1">
                 <thead>
                     <tr>
@@ -69,6 +68,6 @@
             
         </div>
         
-        <p style="margin-top: 20px;"><a th:href="@{/cliente/camisetas/list}">← Seguir Comprando</a></p>
+        <p style="margin-top: 20px;"><a th:href="@{/cliente/camisetas/list}">Seguir Comprando</a></p>
     </body>
 </html>
